@@ -32,7 +32,10 @@
             {
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="@item.ImageUrl" class="card-img-top" alt="@item.VenueName" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        <div class="card-image-container">
+                            <img src="@item.ImageUrl" alt="@item.VenueName"
+                                 onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">@item.VenueName</h5>
                             <p class="card-text">

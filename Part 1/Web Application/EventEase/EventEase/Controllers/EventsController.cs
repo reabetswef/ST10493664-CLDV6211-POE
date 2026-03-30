@@ -42,7 +42,13 @@ namespace EventEase.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            return View();
+            // Set default values for new event
+            var newEvent = new Event
+            {
+                StartDate = DateTime.Now.Date.AddHours(9), // Today at 9:00 AM
+                EndDate = DateTime.Now.Date.AddDays(1).AddHours(17) // Tomorrow at 5:00 PM
+            };
+            return View(newEvent);
         }
 
         // POST: Events/Create
@@ -50,21 +56,32 @@ namespace EventEase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EventId,EventName,Description,StartDate,EndDate,ImageUrl")] Event @event)
         {
+            // Remove validation errors for any fields we don't want to validate
+            ModelState.Remove("Bookings");
+
             if (ModelState.IsValid)
             {
                 // Validate that end date is after start date
                 if (@event.EndDate <= @event.StartDate)
                 {
-                    ModelState.AddModelError("EndDate", "End date must be after start date.");
+                    ModelState.AddModelError("EndDate", "End date and time must be after start date and time.");
+                    return View(@event);
+                }
+
+                // Validate that start date is not in the past (optional)
+                if (@event.StartDate < DateTime.Now.Date)
+                {
+                    ModelState.AddModelError("StartDate", "Start date cannot be in the past.");
                     return View(@event);
                 }
 
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
-                // ✅ SUCCESS MESSAGE ADDED HERE
                 TempData["SuccessMessage"] = "Event created successfully!";
                 return RedirectToAction(nameof(Index));
             }
+
+            // If we got this far, something failed, redisplay form
             return View(@event);
         }
 
@@ -94,13 +111,22 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
+            // Remove validation errors for any fields we don't want to validate
+            ModelState.Remove("Bookings");
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Validate that end date is after start date
+                    if (@event.EndDate <= @event.StartDate)
+                    {
+                        ModelState.AddModelError("EndDate", "End date and time must be after start date and time.");
+                        return View(@event);
+                    }
+
                     _context.Update(@event);
                     await _context.SaveChangesAsync();
-                    // ✅ SUCCESS MESSAGE ADDED HERE
                     TempData["SuccessMessage"] = "Event updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
@@ -135,6 +161,10 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
+            // Check if event has any associated bookings to display warning
+            var hasBookings = await _context.Bookings.AnyAsync(b => b.EventId == id);
+            ViewBag.HasBookings = hasBookings;
+
             return View(@event);
         }
 
@@ -151,13 +181,12 @@ namespace EventEase.Controllers
                 var hasBookings = await _context.Bookings.AnyAsync(b => b.EventId == id);
                 if (hasBookings)
                 {
-                    TempData["ErrorMessage"] = "Cannot delete this event because it has existing bookings.";
+                    TempData["ErrorMessage"] = "Cannot delete this event because it has existing bookings. Please remove or reassign the bookings first.";
                     return RedirectToAction(nameof(Index));
                 }
 
                 _context.Events.Remove(@event);
                 await _context.SaveChangesAsync();
-                // ✅ SUCCESS MESSAGE ADDED HERE
                 TempData["SuccessMessage"] = "Event deleted successfully!";
             }
 
@@ -167,6 +196,25 @@ namespace EventEase.Controllers
         private bool EventExists(int id)
         {
             return _context.Events.Any(e => e.EventId == id);
+        }
+
+        // GET: Events/GetEventDates/5 (AJAX endpoint for booking form)
+        [HttpGet]
+        public async Task<IActionResult> GetEventDates(int id)
+        {
+            var @event = await _context.Events.FindAsync(id);
+            if (@event == null)
+            {
+                return NotFound();
+            }
+
+            return Json(new
+            {
+                startDate = @event.StartDate.ToString("yyyy-MM-dd"),
+                endDate = @event.EndDate.ToString("yyyy-MM-dd"),
+                startDateTime = @event.StartDate.ToString("yyyy-MM-ddTHH:mm"),
+                endDateTime = @event.EndDate.ToString("yyyy-MM-ddTHH:mm")
+            });
         }
     }
 }

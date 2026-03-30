@@ -25,7 +25,9 @@
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label asp-for="EventName" class="control-label fw-bold"></label>
+                                    <label asp-for="EventName" class="control-label fw-bold">
+                                        <i class="fas fa-tag me-1"></i>Event Name
+                                    </label>
                                     <input asp-for="EventName" class="form-control" />
                                     <span asp-validation-for="EventName" class="text-danger"></span>
                                 </div>
@@ -33,31 +35,79 @@
 
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label asp-for="Description" class="control-label fw-bold"></label>
+                                    <label asp-for="Description" class="control-label fw-bold">
+                                        <i class="fas fa-align-left me-1"></i>Description
+                                    </label>
                                     <textarea asp-for="Description" class="form-control" rows="4"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
 
+                            <!-- Start Date with separate date and time -->
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label asp-for="StartDate" class="control-label fw-bold"></label>
-                                    <input asp-for="StartDate" class="form-control" type="datetime-local" />
+                                    <label class="control-label fw-bold">
+                                        <i class="fas fa-calendar-alt me-1"></i>Start Date
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <input type="date"
+                                                   id="StartDate_Date"
+                                                   name="StartDate_Date"
+                                                   class="form-control"
+                                                   value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="time"
+                                                   id="StartDate_Time"
+                                                   name="StartDate_Time"
+                                                   class="form-control"
+                                                   value="@Model.StartDate.ToString("HH:mm")" />
+                                        </div>
+                                    </div>
+                                    <input type="hidden" asp-for="StartDate" />
                                     <span asp-validation-for="StartDate" class="text-danger"></span>
+                                    <small class="form-text text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>Select date and time (hours and minutes only)
+                                    </small>
                                 </div>
                             </div>
 
+                            <!-- End Date with separate date and time -->
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label asp-for="EndDate" class="control-label fw-bold"></label>
-                                    <input asp-for="EndDate" class="form-control" type="datetime-local" />
+                                    <label class="control-label fw-bold">
+                                        <i class="fas fa-calendar-alt me-1"></i>End Date
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <input type="date"
+                                                   id="EndDate_Date"
+                                                   name="EndDate_Date"
+                                                   class="form-control"
+                                                   value="@Model.EndDate.ToString("yyyy-MM-dd")" />
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="time"
+                                                   id="EndDate_Time"
+                                                   name="EndDate_Time"
+                                                   class="form-control"
+                                                   value="@Model.EndDate.ToString("HH:mm")" />
+                                        </div>
+                                    </div>
+                                    <input type="hidden" asp-for="EndDate" />
                                     <span asp-validation-for="EndDate" class="text-danger"></span>
+                                    <small class="form-text text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>Select date and time (hours and minutes only)
+                                    </small>
                                 </div>
                             </div>
 
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label asp-for="ImageUrl" class="control-label fw-bold"></label>
+                                    <label asp-for="ImageUrl" class="control-label fw-bold">
+                                        <i class="fas fa-image me-1"></i>Image URL
+                                    </label>
                                     <input asp-for="ImageUrl" class="form-control" placeholder="https://via.placeholder.com/300x200" />
                                     <span asp-validation-for="ImageUrl" class="text-danger"></span>
                                     <small class="form-text text-muted">
@@ -68,7 +118,7 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" onclick="combineDateTime()">
                                 <i class="fas fa-save me-2"></i>Save
                             </button>
                             <a asp-action="Index" class="btn btn-secondary">
@@ -89,8 +139,32 @@
                 </div>
                 <div class="card-body text-center">
                     <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.EventName"
-                         style="max-height: 200px; width: auto;"
+                         style="max-height: 200px; width: auto; object-fit: contain;"
                          onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>Tips
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            End date must be after start date
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Time is in 24-hour format (e.g., 14:30 for 2:30 PM)
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Use valid image URLs (jpg, png, etc.)
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -101,4 +175,60 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // Combine date and time fields into the hidden DateTime field
+        function combineDateTime() {
+            // Get start date and time values
+            var startDateValue = document.getElementById('StartDate_Date').value;
+            var startTimeValue = document.getElementById('StartDate_Time').value;
+
+            // Get end date and time values
+            var endDateValue = document.getElementById('EndDate_Date').value;
+            var endTimeValue = document.getElementById('EndDate_Time').value;
+
+            // Combine into ISO format strings
+            if (startDateValue && startTimeValue) {
+                var startDateTime = startDateValue + 'T' + startTimeValue + ':00';
+                document.getElementById('StartDate').value = startDateTime;
+            }
+
+            if (endDateValue && endTimeValue) {
+                var endDateTime = endDateValue + 'T' + endTimeValue + ':00';
+                document.getElementById('EndDate').value = endDateTime;
+            }
+        }
+
+        // Add event listeners to combine before form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            combineDateTime();
+        });
+
+        // Add validation to ensure end date is after start date
+        function validateDates() {
+            var startDate = document.getElementById('StartDate_Date').value;
+            var startTime = document.getElementById('StartDate_Time').value;
+            var endDate = document.getElementById('EndDate_Date').value;
+            var endTime = document.getElementById('EndDate_Time').value;
+
+            if (startDate && startTime && endDate && endTime) {
+                var start = new Date(startDate + 'T' + startTime);
+                var end = new Date(endDate + 'T' + endTime);
+
+                if (end <= start) {
+                    alert('End date and time must be after start date and time.');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Add validation to the form
+        var originalSubmit = document.querySelector('form').submit;
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!validateDates()) {
+                e.preventDefault();
+            }
+        });
+    </script>
 }

@@ -21,20 +21,18 @@ namespace EventEase.Models
         [Required(ErrorMessage = "Start date is required")]
         [Display(Name = "Start Date")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "End date is required")]
         [Display(Name = "End Date")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Image URL")]
         [DataType(DataType.ImageUrl)]
         public string ImageUrl { get; set; } = string.Empty;
-
-        // Validation: End date must be after start date
-        [NotMapped]
-        public bool IsValidDate => EndDate > StartDate;
 
         // Navigation property - one event can have many bookings
         public virtual ICollection<Booking>? Bookings { get; set; }
