@@ -4,10 +4,10 @@
 ## Links
 YouTube Link:
 
-## 📋 Project Overview
+## Project Overview
 EventEase is a comprehensive venue booking management system developed for EventEase, an event management company. This application streamlines venue management, prevents booking conflicts, provides clear visibility of scheduled events, and enables booking specialists to manage venue bookings efficiently.
 
-### 🎯 Key Features (Part 1)
+### Key Features (Part 1)
 - **Complete CRUD Operations** for Venues, Events, and Bookings
 - **Local Database Persistence** using SQL LocalDB
 - **Data Validation** with comprehensive error handling
