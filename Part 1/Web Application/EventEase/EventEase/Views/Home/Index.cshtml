@@ -1,8 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to EventEase</h1>
+    <p class="lead">Your Complete Venue Booking Management System</p>
 </div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Venues</h5>
+                <p class="card-text display-4">@ViewBag.VenueCount</p>
+                <a asp-controller="Venues" asp-action="Index" class="text-white">Manage Venues →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Events</h5>
+                <p class="card-text display-4">@ViewBag.EventCount</p>
+                <a asp-controller="Events" asp-action="Index" class="text-white">Manage Events →</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Bookings</h5>
+                <p class="card-text display-4">@ViewBag.BookingCount</p>
+                <a asp-controller="Bookings" asp-action="Index" class="text-white">Manage Bookings →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.RecentBookings.Count > 0)
+{
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Recent Bookings</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Venue</th>
+                                <th>Event</th>
+                                <th>Booking Date</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in ViewBag.RecentBookings)
+                            {
+                                <tr>
+                                    <td>@booking.BookingId</td>
+                                    <td>@booking.Venue?.VenueName</td>
+                                    <td>@booking.Event?.EventName</td>
+                                    <td>@booking.BookingDate.ToString("MMM dd, yyyy")</td>
+                                    <td>@booking.CustomerName</td>
+                                    <td>@booking.Status</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
