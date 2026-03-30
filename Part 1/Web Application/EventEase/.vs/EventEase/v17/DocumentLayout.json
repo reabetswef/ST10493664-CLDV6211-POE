@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 1\\web application\\eventease\\eventease\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\controllers\\bookingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 1\\web application\\eventease\\eventease\\controllers\\eventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\controllers\\eventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 1\\web application\\eventease\\eventease\\controllers\\venuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\controllers\\venuescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 1\\web application\\eventease\\eventease\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -39,6 +51,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "BookingsController.cs",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\BookingsController.cs",
+              "RelativeDocumentMoniker": "EventEase\\Controllers\\BookingsController.cs",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\BookingsController.cs",
+              "RelativeToolTip": "EventEase\\Controllers\\BookingsController.cs",
+              "ViewState": "AgIAAMIAAAAAAAAAAAAIwOUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T08:44:55.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EventsController.cs",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\EventsController.cs",
+              "RelativeDocumentMoniker": "EventEase\\Controllers\\EventsController.cs",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\EventsController.cs",
+              "RelativeToolTip": "EventEase\\Controllers\\EventsController.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAIwKUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T08:44:36.73Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VenuesController.cs",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\VenuesController.cs",
+              "RelativeDocumentMoniker": "EventEase\\Controllers\\VenuesController.cs",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Controllers\\VenuesController.cs",
+              "RelativeToolTip": "EventEase\\Controllers\\VenuesController.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAIwJ4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T08:43:50.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Program.cs",
               "RelativeDocumentMoniker": "EventEase\\Program.cs",
@@ -51,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\appsettings.json",
               "RelativeDocumentMoniker": "EventEase\\appsettings.json",
@@ -64,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "EventEase\\Data\\ApplicationDbContext.cs",
@@ -77,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Venue.cs",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Models\\Venue.cs",
               "RelativeDocumentMoniker": "EventEase\\Models\\Venue.cs",
@@ -89,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Event.cs",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Models\\Event.cs",
               "RelativeDocumentMoniker": "EventEase\\Models\\Event.cs",
@@ -101,7 +152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Booking.cs",
               "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\Models\\Booking.cs",
               "RelativeDocumentMoniker": "EventEase\\Models\\Booking.cs",
