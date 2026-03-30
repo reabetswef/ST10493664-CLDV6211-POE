@@ -162,29 +162,24 @@ Try deleting a venue with existing bookings
 
 ### Dependencies
 Package	Version	Purpose
-Microsoft.EntityFrameworkCore.SqlServer	8.0.0	SQL Server database provider
-Microsoft.EntityFrameworkCore.Tools	8.0.0	EF Core migration tools
-Microsoft.EntityFrameworkCore.Design	8.0.0	EF Core design-time support
+- Microsoft.EntityFrameworkCore.SqlServer	8.0.0	SQL Server database provider
+- Microsoft.EntityFrameworkCore.Tools	8.0.0	EF Core migration tools
+- Microsoft.EntityFrameworkCore.Design	8.0.0	EF Core design-time support
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Authors
-Name: Reabetswe Tebogo Fafudi
-Student Number: ST10493664
-Module Code: CLDV6211
-Group: 4
+- Name: Reabetswe Tebogo Fafudi
+- Student Number: ST10493664
+- Module Code: CLDV6211
+- Group: 4
 
-## Acknowledgments
-EventEase for the project requirements
-ASP.NET Core documentation
-Bootstrap for the UI framework
-Font Awesome for the icons
 
 ## Contact
 For questions or support, please contact:
-Email: rtfafudi@gmail.com
-GitHub Issues: Create an issue
+- Email: rtfafudi@gmail.com
+- GitHub Issues: Create an issue
 
 ## Future Enhancements (Part 2 & 3)
 - Image Upload: Replace placeholder URLs with actual image uploads using Azurite
