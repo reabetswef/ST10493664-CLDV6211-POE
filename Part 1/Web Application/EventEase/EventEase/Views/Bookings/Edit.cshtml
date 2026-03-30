@@ -1,7 +1,7 @@
 ﻿@model EventEase.Models.Booking
 
 @{
-    ViewData["Title"] = "Create Booking";
+    ViewData["Title"] = "Edit Booking";
     var venues = ViewBag.Venues as List<EventEase.Models.Venue>;
     var events = ViewBag.Events as List<EventEase.Models.Event>;
 }
@@ -9,7 +9,7 @@
 <div class="fade-in">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>
-            <i class="fas fa-plus-circle me-2"></i>Create Booking
+            <i class="fas fa-edit me-2"></i>Edit Booking
         </h1>
         <a asp-action="Index" class="btn btn-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to List
@@ -20,8 +20,9 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form asp-action="Create">
+                    <form asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="BookingId" />
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -29,12 +30,8 @@
                                     <label asp-for="VenueId" class="control-label fw-bold">
                                         <i class="fas fa-building me-1"></i>Venue
                                     </label>
-                                    <select asp-for="VenueId" class="form-control" id="VenueSelect">
+                                    <select asp-for="VenueId" class="form-control" asp-items="@(new SelectList(venues, "VenueId", "VenueName"))">
                                         <option value="">-- Select Venue --</option>
-                                        @foreach (var venue in venues)
-                                        {
-                                            <option value="@venue.VenueId">@venue.VenueName - Capacity: @venue.Capacity</option>
-                                        }
                                     </select>
                                     <span asp-validation-for="VenueId" class="text-danger"></span>
                                 </div>
@@ -45,16 +42,8 @@
                                     <label asp-for="EventId" class="control-label fw-bold">
                                         <i class="fas fa-calendar-alt me-1"></i>Event
                                     </label>
-                                    <select asp-for="EventId" class="form-control" id="EventSelect">
+                                    <select asp-for="EventId" class="form-control" asp-items="@(new SelectList(events, "EventId", "EventName"))">
                                         <option value="">-- Select Event --</option>
-                                        @foreach (var ev in events)
-                                        {
-                                            <option value="@ev.EventId"
-                                                    data-start="@ev.StartDate.ToString("yyyy-MM-dd")"
-                                                    data-end="@ev.EndDate.ToString("yyyy-MM-dd")">
-                                                @ev.EventName - @ev.StartDate.ToString("MMM dd") to @ev.EndDate.ToString("MMM dd, yyyy")
-                                            </option>
-                                        }
                                     </select>
                                     <span asp-validation-for="EventId" class="text-danger"></span>
                                 </div>
@@ -66,10 +55,10 @@
                                 <label asp-for="BookingDate" class="control-label fw-bold">
                                     <i class="fas fa-calendar-day me-1"></i>Booking Date
                                 </label>
-                                <input asp-for="BookingDate" class="form-control" type="date" id="BookingDate" />
+                                <input asp-for="BookingDate" class="form-control" type="date" />
                                 <span asp-validation-for="BookingDate" class="text-danger"></span>
-                                <small class="form-text text-muted" id="DateRangeMessage">
-                                    <i class="fas fa-info-circle me-1"></i>Select an event first to see available date range
+                                <small class="form-text text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>Select the date for the booking
                                 </small>
                             </div>
                         </div>
@@ -118,7 +107,7 @@
 
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Create Booking
+                                <i class="fas fa-save me-2"></i>Save Changes
                             </button>
                             <a asp-action="Index" class="btn btn-secondary">
                                 <i class="fas fa-times me-2"></i>Cancel
@@ -140,10 +129,6 @@
                     <ul class="list-unstyled">
                         <li class="mb-2">
                             <i class="fas fa-check-circle text-success me-2"></i>
-                            Select an event first to see available date range
-                        </li>
-                        <li class="mb-2">
-                            <i class="fas fa-check-circle text-success me-2"></i>
                             Booking date must be within the selected event's date range
                         </li>
                         <li class="mb-2">
@@ -153,6 +138,10 @@
                         <li class="mb-2">
                             <i class="fas fa-check-circle text-success me-2"></i>
                             Cancelled bookings don't block the venue
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Customer contact details are optional but recommended
                         </li>
                     </ul>
                 </div>
@@ -165,29 +154,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
-    <script>
-        // Dynamic date range validation based on selected event
-        document.getElementById('EventSelect').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var startDate = selectedOption.getAttribute('data-start');
-            var endDate = selectedOption.getAttribute('data-end');
-            var dateInput = document.getElementById('BookingDate');
-            var messageSpan = document.getElementById('DateRangeMessage');
-
-            if (startDate && endDate) {
-                dateInput.min = startDate;
-                dateInput.max = endDate;
-                messageSpan.innerHTML = '<i class="fas fa-info-circle me-1"></i>Booking date must be between ' +
-                                        new Date(startDate).toLocaleDateString() + ' and ' +
-                                        new Date(endDate).toLocaleDateString();
-                messageSpan.className = 'form-text text-success';
-            } else {
-                dateInput.min = '';
-                dateInput.max = '';
-                messageSpan.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select an event first to see available date range';
-                messageSpan.className = 'form-text text-muted';
-            }
-        });
-    </script>
 }

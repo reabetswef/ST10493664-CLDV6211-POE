@@ -54,6 +54,8 @@ namespace EventEase.Controllers
             {
                 _context.Add(venue);
                 await _context.SaveChangesAsync();
+                // ✅ SUCCESS MESSAGE ADDED HERE
+                TempData["SuccessMessage"] = "Venue created successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(venue);
@@ -91,6 +93,8 @@ namespace EventEase.Controllers
                 {
                     _context.Update(venue);
                     await _context.SaveChangesAsync();
+                    // ✅ SUCCESS MESSAGE ADDED HERE
+                    TempData["SuccessMessage"] = "Venue updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,6 +150,8 @@ namespace EventEase.Controllers
 
                 _context.Venues.Remove(venue);
                 await _context.SaveChangesAsync();
+                // ✅ SUCCESS MESSAGE ADDED HERE
+                TempData["SuccessMessage"] = "Venue deleted successfully!";
             }
 
             return RedirectToAction(nameof(Index));

@@ -1,0 +1,177 @@
+﻿@model EventEase.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Details";
+}
+
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-bookmark me-2"></i>Booking Details
+        </h1>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.BookingId" class="btn btn-warning">
+                <i class="fas fa-edit me-2"></i>Edit
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">
+                <i class="fas fa-info-circle me-2"></i>Booking Information
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <i class="fas fa-hashtag me-1"></i> Booking ID
+                        </dt>
+                        <dd class="col-sm-8">
+                            #@Model.BookingId
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-building me-1"></i> Venue
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Venue?.VenueName
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-calendar-alt me-1"></i> Event
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Event?.EventName
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-calendar-day me-1"></i> Booking Date
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.BookingDate.ToString("MMMM dd, yyyy")
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-tag me-1"></i> Status
+                        </dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Status == EventEase.Models.BookingStatus.Confirmed)
+                            {
+                                <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
+                            }
+                            else if (Model.Status == EventEase.Models.BookingStatus.Pending)
+                            {
+                                <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <i class="fas fa-user me-1"></i> Customer Name
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.CustomerName
+                        </dd>
+
+                        @if (!string.IsNullOrEmpty(Model.CustomerEmail))
+                        {
+                            <dt class="col-sm-4">
+                                <i class="fas fa-envelope me-1"></i> Email
+                            </dt>
+                            <dd class="col-sm-8">
+                                <a href="mailto:@Model.CustomerEmail">@Model.CustomerEmail</a>
+                            </dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.CustomerPhone))
+                        {
+                            <dt class="col-sm-4">
+                                <i class="fas fa-phone me-1"></i> Phone
+                            </dt>
+                            <dd class="col-sm-8">
+                                <a href="tel:@Model.CustomerPhone">@Model.CustomerPhone</a>
+                            </dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.Event != null)
+    {
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-alt me-2"></i>Event Details
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <dl class="row">
+                            <dt class="col-sm-3">Event Name</dt>
+                            <dd class="col-sm-9">@Model.Event.EventName</dd>
+
+                            <dt class="col-sm-3">Description</dt>
+                            <dd class="col-sm-9">@Model.Event.Description</dd>
+
+                            <dt class="col-sm-3">Start Date</dt>
+                            <dd class="col-sm-9">@Model.Event.StartDate.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+
+                            <dt class="col-sm-3">End Date</dt>
+                            <dd class="col-sm-9">@Model.Event.EndDate.ToString("MMMM dd, yyyy hh:mm tt")</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Event.ImageUrl" class="img-fluid rounded" alt="@Model.Event.EventName"
+                             onerror="this.src='https://via.placeholder.com/150x100?text=No+Image'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.Venue != null)
+    {
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-building me-2"></i>Venue Details
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <dl class="row">
+                            <dt class="col-sm-3">Venue Name</dt>
+                            <dd class="col-sm-9">@Model.Venue.VenueName</dd>
+
+                            <dt class="col-sm-3">Location</dt>
+                            <dd class="col-sm-9">@Model.Venue.Location</dd>
+
+                            <dt class="col-sm-3">Capacity</dt>
+                            <dd class="col-sm-9">@Model.Venue.Capacity people</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Venue.ImageUrl" class="img-fluid rounded" alt="@Model.Venue.VenueName"
+                             onerror="this.src='https://via.placeholder.com/150x100?text=No+Image'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

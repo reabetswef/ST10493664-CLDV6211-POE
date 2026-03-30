@@ -70,16 +70,22 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // Validate the booking date is within the event's date range
-            if (booking.BookingDate < @event.StartDate || booking.BookingDate > @event.EndDate)
+            // FIXED: Validate the booking date is within the event's date range
+            // Only compare dates, not times
+            var bookingDateOnly = booking.BookingDate.Date;
+            var eventStartDateOnly = @event.StartDate.Date;
+            var eventEndDateOnly = @event.EndDate.Date;
+
+            if (bookingDateOnly < eventStartDateOnly || bookingDateOnly > eventEndDateOnly)
             {
-                ModelState.AddModelError("BookingDate", $"Booking date must be between {@event.StartDate:d} and {@event.EndDate:d}");
+                ModelState.AddModelError("BookingDate",
+                    $"Booking date must be between {eventStartDateOnly:MMM dd, yyyy} and {eventEndDateOnly:MMM dd, yyyy}");
                 ViewBag.Venues = _context.Venues.ToList();
                 ViewBag.Events = _context.Events.ToList();
                 return View(booking);
             }
 
-            // Check for double booking
+            // Check for double booking - only check for confirmed and pending bookings
             var isBooked = await _context.Bookings
                 .AnyAsync(b => b.VenueId == booking.VenueId &&
                                b.BookingDate.Date == booking.BookingDate.Date &&
@@ -97,6 +103,7 @@ namespace EventEase.Controllers
             {
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Booking created successfully!";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -166,6 +173,8 @@ namespace EventEase.Controllers
                 {
                     _context.Update(booking);
                     await _context.SaveChangesAsync();
+                    // ✅ SUCCESS MESSAGE ADDED HERE
+                    TempData["SuccessMessage"] = "Booking updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -217,6 +226,8 @@ namespace EventEase.Controllers
             {
                 _context.Bookings.Remove(booking);
                 await _context.SaveChangesAsync();
+                // ✅ SUCCESS MESSAGE ADDED HERE
+                TempData["SuccessMessage"] = "Booking deleted successfully!";
             }
 
             return RedirectToAction(nameof(Index));
