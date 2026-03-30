@@ -137,8 +137,8 @@ EventEase is a comprehensive venue booking management system developed for Event
 - Status	Required, Enum value
 
 
-### Testing
-# Test the Application
+# Testing
+### Test the Application
 1. Create a Venue
 Navigate to Venues → Create New Venue
 Fill in venue details with placeholder image URL
