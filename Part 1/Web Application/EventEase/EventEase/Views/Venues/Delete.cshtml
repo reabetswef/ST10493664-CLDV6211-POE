@@ -1,0 +1,49 @@
+﻿@model EventEase.Models.Venue
+
+@{
+    ViewData["Title"] = "Delete Venue";
+}
+
+<h1>Delete Venue</h1>
+
+<div class="alert alert-warning">
+    <h3>Are you sure you want to delete this venue?</h3>
+    <p>This action cannot be undone.</p>
+</div>
+
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.VenueName">
+        </div>
+        <div class="col-md-8">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VenueName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VenueName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Location)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Location)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Capacity)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Capacity)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="VenueId" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>
