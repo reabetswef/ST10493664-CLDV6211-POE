@@ -20,7 +20,7 @@
         <div class="col-md-8">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form asp-action="Create">
+                    <form asp-action="Create" id="createBookingForm">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                         <div class="row">
@@ -51,7 +51,9 @@
                                         {
                                             <option value="@ev.EventId"
                                                     data-start="@ev.StartDate.ToString("yyyy-MM-dd")"
-                                                    data-end="@ev.EndDate.ToString("yyyy-MM-dd")">
+                                                    data-end="@ev.EndDate.ToString("yyyy-MM-dd")"
+                                                    data-start-display="@ev.StartDate.ToString("MMM dd, yyyy")"
+                                                    data-end-display="@ev.EndDate.ToString("MMM dd, yyyy")">
                                                 @ev.EventName - @ev.StartDate.ToString("MMM dd") to @ev.EndDate.ToString("MMM dd, yyyy")
                                             </option>
                                         }
@@ -67,10 +69,11 @@
                                     <i class="fas fa-calendar-day me-1"></i>Booking Date
                                 </label>
                                 <input asp-for="BookingDate" class="form-control" type="date" id="BookingDate" />
-                                <span asp-validation-for="BookingDate" class="text-danger"></span>
-                                <small class="form-text text-muted" id="DateRangeMessage">
-                                    <i class="fas fa-info-circle me-1"></i>Select an event first to see available date range
-                                </small>
+                                <span asp-validation-for="BookingDate" class="text-danger" id="BookingDateError"></span>
+                                <div id="DateRangeMessage" class="form-text text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    <span>Select an event to see the available date range</span>
+                                </div>
                             </div>
                         </div>
 
@@ -167,27 +170,104 @@
     }
 
     <script>
-        // Dynamic date range validation based on selected event
-        document.getElementById('EventSelect').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var startDate = selectedOption.getAttribute('data-start');
-            var endDate = selectedOption.getAttribute('data-end');
-            var dateInput = document.getElementById('BookingDate');
-            var messageSpan = document.getElementById('DateRangeMessage');
+        const eventSelect = document.getElementById('EventSelect');
+        const bookingDateInput = document.getElementById('BookingDate');
+        const dateRangeMessage = document.getElementById('DateRangeMessage');
+        const bookingDateError = document.getElementById('BookingDateError');
 
-            if (startDate && endDate) {
-                dateInput.min = startDate;
-                dateInput.max = endDate;
-                messageSpan.innerHTML = '<i class="fas fa-info-circle me-1"></i>Booking date must be between ' +
-                                        new Date(startDate).toLocaleDateString() + ' and ' +
-                                        new Date(endDate).toLocaleDateString();
-                messageSpan.className = 'form-text text-success';
+        let currentEventStart = null;
+        let currentEventEnd = null;
+        let currentEventStartDisplay = null;
+        let currentEventEndDisplay = null;
+
+        function updateDateRange() {
+            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+
+            if (selectedOption && selectedOption.value) {
+                const startDate = selectedOption.getAttribute('data-start');
+                const endDate = selectedOption.getAttribute('data-end');
+                const startDisplay = selectedOption.getAttribute('data-start-display');
+                const endDisplay = selectedOption.getAttribute('data-end-display');
+
+                if (startDate && endDate) {
+                    currentEventStart = startDate;
+                    currentEventEnd = endDate;
+                    currentEventStartDisplay = startDisplay;
+                    currentEventEndDisplay = endDisplay;
+
+                    bookingDateInput.min = startDate;
+                    bookingDateInput.max = endDate;
+
+                    dateRangeMessage.innerHTML = `
+                        <i class="fas fa-info-circle me-1"></i>
+                        <span>Booking date must be between <strong>${startDisplay}</strong> and <strong>${endDisplay}</strong></span>
+                    `;
+                    dateRangeMessage.className = 'form-text text-success';
+
+                    validateBookingDate();
+                }
             } else {
-                dateInput.min = '';
-                dateInput.max = '';
-                messageSpan.innerHTML = '<i class="fas fa-info-circle me-1"></i>Select an event first to see available date range';
-                messageSpan.className = 'form-text text-muted';
+                currentEventStart = null;
+                currentEventEnd = null;
+                bookingDateInput.min = '';
+                bookingDateInput.max = '';
+                dateRangeMessage.innerHTML = `
+                    <i class="fas fa-info-circle me-1"></i>
+                    <span>Select an event to see the available date range</span>
+                `;
+                dateRangeMessage.className = 'form-text text-muted';
+                bookingDateError.textContent = '';
             }
+        }
+
+        function validateBookingDate() {
+            const bookingDate = bookingDateInput.value;
+
+            if (!bookingDate) {
+                bookingDateError.textContent = '';
+                return true;
+            }
+
+            if (currentEventStart && currentEventEnd) {
+                const bookingDateObj = new Date(bookingDate);
+                const startDateObj = new Date(currentEventStart);
+                const endDateObj = new Date(currentEventEnd);
+
+                if (bookingDateObj < startDateObj || bookingDateObj > endDateObj) {
+                    bookingDateError.textContent = `Booking date must be between ${currentEventStartDisplay} and ${currentEventEndDisplay}`;
+                    bookingDateError.style.color = '#dc3545';
+                    return false;
+                } else {
+                    bookingDateError.textContent = '';
+                    return true;
+                }
+            }
+            return true;
+        }
+
+        eventSelect.addEventListener('change', updateDateRange);
+        bookingDateInput.addEventListener('change', validateBookingDate);
+
+        document.getElementById('createBookingForm').addEventListener('submit', function(e) {
+            if (!validateBookingDate()) {
+                e.preventDefault();
+                alert('Please fix the booking date error before submitting.');
+                return false;
+            }
+            if (!eventSelect.value) {
+                e.preventDefault();
+                alert('Please select an event.');
+                return false;
+            }
+            if (!document.getElementById('VenueSelect').value) {
+                e.preventDefault();
+                alert('Please select a venue.');
+                return false;
+            }
+            return true;
         });
+
+        // Initial validation
+        updateDateRange();
     </script>
 }

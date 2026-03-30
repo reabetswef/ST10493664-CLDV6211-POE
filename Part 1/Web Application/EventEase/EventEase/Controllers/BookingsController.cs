@@ -50,7 +50,15 @@ namespace EventEase.Controllers
             // Populate dropdown lists
             ViewBag.Venues = _context.Venues.ToList();
             ViewBag.Events = _context.Events.ToList();
-            return View();
+
+            // Set default booking date to today
+            var booking = new Booking
+            {
+                BookingDate = DateTime.Today,
+                Status = BookingStatus.Confirmed
+            };
+
+            return View(booking);
         }
 
         // POST: Bookings/Create
@@ -58,6 +66,10 @@ namespace EventEase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,VenueId,EventId,BookingDate,CustomerName,CustomerEmail,CustomerPhone,Status")] Booking booking)
         {
+            // Remove validation for navigation properties
+            ModelState.Remove("Venue");
+            ModelState.Remove("Event");
+
             // Validate that the venue and event exist
             var venue = await _context.Venues.FindAsync(booking.VenueId);
             var @event = await _context.Events.FindAsync(booking.EventId);
@@ -70,8 +82,7 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // FIXED: Validate the booking date is within the event's date range
-            // Only compare dates, not times
+            // Validate the booking date is within the event's date range
             var bookingDateOnly = booking.BookingDate.Date;
             var eventStartDateOnly = @event.StartDate.Date;
             var eventEndDateOnly = @event.EndDate.Date;
@@ -89,6 +100,7 @@ namespace EventEase.Controllers
             var isBooked = await _context.Bookings
                 .AnyAsync(b => b.VenueId == booking.VenueId &&
                                b.BookingDate.Date == booking.BookingDate.Date &&
+                               b.BookingId != booking.BookingId &&
                                b.Status != BookingStatus.Cancelled);
 
             if (isBooked)
@@ -120,7 +132,11 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = await _context.Bookings
+                .Include(b => b.Venue)
+                .Include(b => b.Event)
+                .FirstOrDefaultAsync(b => b.BookingId == id);
+
             if (booking == null)
             {
                 return NotFound();
@@ -128,6 +144,16 @@ namespace EventEase.Controllers
 
             ViewBag.Venues = _context.Venues.ToList();
             ViewBag.Events = _context.Events.ToList();
+
+            // Pass the event date range to the view for validation
+            if (booking.Event != null)
+            {
+                ViewBag.EventStartDate = booking.Event.StartDate.ToString("yyyy-MM-dd");
+                ViewBag.EventEndDate = booking.Event.EndDate.ToString("yyyy-MM-dd");
+                ViewBag.EventStartDisplay = booking.Event.StartDate.ToString("MMM dd, yyyy");
+                ViewBag.EventEndDisplay = booking.Event.EndDate.ToString("MMM dd, yyyy");
+            }
+
             return View(booking);
         }
 
@@ -141,6 +167,11 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
+            // Remove validation for navigation properties
+            ModelState.Remove("Venue");
+            ModelState.Remove("Event");
+
+            // Validate that the venue and event exist
             var venue = await _context.Venues.FindAsync(booking.VenueId);
             var @event = await _context.Events.FindAsync(booking.EventId);
 
@@ -149,6 +180,30 @@ namespace EventEase.Controllers
                 ModelState.AddModelError("", "Invalid venue or event selected.");
                 ViewBag.Venues = _context.Venues.ToList();
                 ViewBag.Events = _context.Events.ToList();
+                return View(booking);
+            }
+
+            // FIXED: Validate the booking date is within the event's date range
+            var bookingDateOnly = booking.BookingDate.Date;
+            var eventStartDateOnly = @event.StartDate.Date;
+            var eventEndDateOnly = @event.EndDate.Date;
+
+            if (bookingDateOnly < eventStartDateOnly || bookingDateOnly > eventEndDateOnly)
+            {
+                ModelState.AddModelError("BookingDate",
+                    $"Booking date must be between {eventStartDateOnly:MMM dd, yyyy} and {eventEndDateOnly:MMM dd, yyyy}");
+                ViewBag.Venues = _context.Venues.ToList();
+                ViewBag.Events = _context.Events.ToList();
+
+                // Pass event dates to view for display
+                if (@event != null)
+                {
+                    ViewBag.EventStartDate = @event.StartDate.ToString("yyyy-MM-dd");
+                    ViewBag.EventEndDate = @event.EndDate.ToString("yyyy-MM-dd");
+                    ViewBag.EventStartDisplay = @event.StartDate.ToString("MMM dd, yyyy");
+                    ViewBag.EventEndDisplay = @event.EndDate.ToString("MMM dd, yyyy");
+                }
+
                 return View(booking);
             }
 
@@ -173,7 +228,6 @@ namespace EventEase.Controllers
                 {
                     _context.Update(booking);
                     await _context.SaveChangesAsync();
-                    // ✅ SUCCESS MESSAGE ADDED HERE
                     TempData["SuccessMessage"] = "Booking updated successfully!";
                 }
                 catch (DbUpdateConcurrencyException)
@@ -226,7 +280,6 @@ namespace EventEase.Controllers
             {
                 _context.Bookings.Remove(booking);
                 await _context.SaveChangesAsync();
-                // ✅ SUCCESS MESSAGE ADDED HERE
                 TempData["SuccessMessage"] = "Booking deleted successfully!";
             }
 
