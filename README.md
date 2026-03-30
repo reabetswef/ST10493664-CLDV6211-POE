@@ -178,7 +178,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 For questions or support, please contact:
-- Email: rtfafudi@gmail.com
+- Email: ST10493664@myemeris.edu.za
+- Alt Email: rtfafudi@gmail.com
 - GitHub Issues: Create an issue
 
 ## Future Enhancements (Part 2 & 3)
@@ -190,5 +191,5 @@ For questions or support, please contact:
 - Azure Blob Storage: Store images in the cloud
 
 Version: 1.0.0
-Status: ✅ Part 1 Complete - Project Foundation
+Status: Part 1 Complete - Project Foundation
 Last Updated: March 30, 2026
