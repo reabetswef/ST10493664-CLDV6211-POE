@@ -1,5 +1,5 @@
 # ST10493664-CLDV6211-POE
-## EventEase - Venue Booking System
+EventEase - Venue Booking System
 
 
 
