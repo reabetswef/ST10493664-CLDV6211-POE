@@ -1,11 +1,17 @@
-## ST10493664-CLDV6211-POE
-# EventEase - Venue Booking System
+# ST10493664-CLDV6211-POE
+## EventEase - Venue Booking System
+
+
 
 ## Links
 YouTube Link:
 
+
+
 ## Project Overview
 EventEase is a comprehensive venue booking management system developed for EventEase, an event management company. This application streamlines venue management, prevents booking conflicts, provides clear visibility of scheduled events, and enables booking specialists to manage venue bookings efficiently.
+
+
 
 ### Key Features (Part 1)
 - **Complete CRUD Operations** for Venues, Events, and Bookings
@@ -15,6 +21,8 @@ EventEase is a comprehensive venue booking management system developed for Event
 - **Delete Restriction Logic** preventing deletion of venues/events with existing bookings
 - **User-Friendly Interface** with responsive design
 - **Dashboard Overview** showing key metrics and recent bookings
+
+
 
 ### Database Tables
 #### Venue Table
@@ -47,6 +55,8 @@ EventEase is a comprehensive venue booking management system developed for Event
 | CustomerEmail | NVARCHAR(100) | NULL |
 | CustomerPhone | NVARCHAR(20) | NULL |
 | Status | INT | NOT NULL |
+
+
 
 ## Getting Started
 ### Prerequisites
