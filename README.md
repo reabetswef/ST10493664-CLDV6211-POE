@@ -80,9 +80,9 @@ EventEase is a comprehensive venue booking management system developed for Event
 
 7. **Create and update the database**
 - Open Package Manager Console
--- Add-Migration InitialCreate
--- Update-Database
--- Run the application
+- Add-Migration InitialCreate
+- Update-Database
+- Run the application
 
 8. **Press F5 or click "Run" in Visual Studio**
 
