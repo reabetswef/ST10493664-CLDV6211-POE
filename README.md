@@ -3,8 +3,8 @@ EventEase - Venue Booking System
 
 
 ## Links
-Main Github Link: https://github.com/reabetswef/ST10493664-CLDV6211-POE.git
-YouTube Link: https://youtu.be/VKkIo6Vn8Vs
+- Main Github Link: https://github.com/reabetswef/ST10493664-CLDV6211-POE.git
+- YouTube Link: https://youtu.be/VKkIo6Vn8Vs
 
 
 
