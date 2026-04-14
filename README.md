@@ -4,7 +4,7 @@ EventEase - Venue Booking System
 
 
 ## Links
-YouTube Link: https://www.youtube.com/playlist?list=PLBvzVIqMwo4M5L3eMfEbZpuXMauNuyN0L
+YouTube Link: https://youtu.be/VKkIo6Vn8Vs
 
 
 
