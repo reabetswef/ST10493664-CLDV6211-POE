@@ -7,7 +7,7 @@
 <div class="fade-in">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>
-            <i class="fas fa-trash-alt me-2"></i>Delete Event
+            <i class="fas fa-trash-alt me-2 text-danger"></i>Delete Event
         </h1>
         <a asp-action="Index" class="btn btn-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to List
@@ -19,14 +19,15 @@
         <strong>Warning!</strong> Are you sure you want to delete this event? This action cannot be undone.
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-5">
-                    <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.EventName"
-                         onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Event Information
+                    </h5>
                 </div>
-                <div class="col-md-7">
+                <div class="card-body">
                     <dl class="row">
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.EventName)
@@ -60,22 +61,38 @@
                             @Html.DisplayNameFor(model => model.ImageUrl)
                         </dt>
                         <dd class="col-sm-9">
-                            <a href="@Model.ImageUrl" target="_blank">View Image</a>
+                            <input type="text" class="form-control form-control-sm" readonly value="@Model?.ImageUrl" />
                         </dd>
                     </dl>
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="EventId" />
-                <button type="submit" class="btn btn-danger">
-                    <i class="fas fa-trash-alt me-2"></i>Confirm Delete
-                </button>
-                <a asp-action="Index" class="btn btn-secondary">
-                    <i class="fas fa-times me-2"></i>Cancel
-                </a>
-            </form>
+        
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-image me-2"></i>Event Image
+                    </h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="@Model.ImageUrl" class="current-image-thumb" alt="@Model.EventName"
+                         style="max-height: 200px; max-width: 100%; object-fit: contain; border-radius: 8px;"
+                         onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                </div>
+            </div>
         </div>
+    </div>
+    
+    <div class="mt-4">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="EventId" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash-alt me-2"></i>Confirm Delete
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+            </a>
+        </form>
     </div>
 </div>

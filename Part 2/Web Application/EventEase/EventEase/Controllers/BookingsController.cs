@@ -2,25 +2,71 @@
 using Microsoft.EntityFrameworkCore;
 using EventEase.Data;
 using EventEase.Models;
+using EventEase.Services;
+using EventEase.ViewModels;
 
 namespace EventEase.Controllers
 {
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<BookingsController> _logger;
 
-        public BookingsController(ApplicationDbContext context)
+        public BookingsController(ApplicationDbContext context, ILogger<BookingsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
-        // GET: Bookings
-        public async Task<IActionResult> Index()
+        // GET: Bookings - Enhanced view with search
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            var bookings = _context.Bookings
+            ViewBag.CurrentSearchTerm = searchTerm;
+
+            var bookingsQuery = _context.Bookings
                 .Include(b => b.Venue)
-                .Include(b => b.Event);
-            return View(await bookings.ToListAsync());
+                .Include(b => b.Event)
+                .AsQueryable();
+
+            // Apply search filter if provided
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                bookingsQuery = bookingsQuery.Where(b =>
+                    b.BookingId.ToString().Contains(searchTerm) ||
+                    (b.Event != null && b.Event.EventName.ToLower().Contains(searchTerm)) ||
+                    (b.CustomerName != null && b.CustomerName.ToLower().Contains(searchTerm)) ||
+                    (b.Venue != null && b.Venue.VenueName.ToLower().Contains(searchTerm))
+                );
+            }
+
+            var bookings = await bookingsQuery
+                .OrderByDescending(b => b.BookingDate)
+                .ToListAsync();
+
+            // Map to ViewModel
+            var bookingViewModels = bookings.Select(b => new BookingViewModel
+            {
+                BookingId = b.BookingId,
+                VenueId = b.VenueId,
+                VenueName = b.Venue?.VenueName ?? "N/A",
+                VenueLocation = b.Venue?.Location ?? "N/A",
+                VenueCapacity = b.Venue?.Capacity ?? 0,
+                VenueImageUrl = b.Venue?.ImageUrl,
+                EventId = b.EventId,
+                EventName = b.Event?.EventName ?? "N/A",
+                EventDescription = b.Event?.Description ?? "N/A",
+                EventStartDate = b.Event?.StartDate ?? DateTime.MinValue,
+                EventEndDate = b.Event?.EndDate ?? DateTime.MinValue,
+                EventImageUrl = b.Event?.ImageUrl,
+                BookingDate = b.BookingDate,
+                CustomerName = b.CustomerName,
+                CustomerEmail = b.CustomerEmail,
+                CustomerPhone = b.CustomerPhone,
+                Status = b.Status
+            }).ToList();
+
+            return View(bookingViewModels);
         }
 
         // GET: Bookings/Details/5
@@ -47,11 +93,9 @@ namespace EventEase.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            // Populate dropdown lists
             ViewBag.Venues = _context.Venues.ToList();
             ViewBag.Events = _context.Events.ToList();
 
-            // Set default booking date to today
             var booking = new Booking
             {
                 BookingDate = DateTime.Today,
@@ -66,11 +110,9 @@ namespace EventEase.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,VenueId,EventId,BookingDate,CustomerName,CustomerEmail,CustomerPhone,Status")] Booking booking)
         {
-            // Remove validation for navigation properties
             ModelState.Remove("Venue");
             ModelState.Remove("Event");
 
-            // Validate that the venue and event exist
             var venue = await _context.Venues.FindAsync(booking.VenueId);
             var @event = await _context.Events.FindAsync(booking.EventId);
 
@@ -82,7 +124,6 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // Validate the booking date is within the event's date range
             var bookingDateOnly = booking.BookingDate.Date;
             var eventStartDateOnly = @event.StartDate.Date;
             var eventEndDateOnly = @event.EndDate.Date;
@@ -96,7 +137,6 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // Check for double booking - only check for confirmed and pending bookings
             var isBooked = await _context.Bookings
                 .AnyAsync(b => b.VenueId == booking.VenueId &&
                                b.BookingDate.Date == booking.BookingDate.Date &&
@@ -145,7 +185,6 @@ namespace EventEase.Controllers
             ViewBag.Venues = _context.Venues.ToList();
             ViewBag.Events = _context.Events.ToList();
 
-            // Pass the event date range to the view for validation
             if (booking.Event != null)
             {
                 ViewBag.EventStartDate = booking.Event.StartDate.ToString("yyyy-MM-dd");
@@ -167,11 +206,9 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
-            // Remove validation for navigation properties
             ModelState.Remove("Venue");
             ModelState.Remove("Event");
 
-            // Validate that the venue and event exist
             var venue = await _context.Venues.FindAsync(booking.VenueId);
             var @event = await _context.Events.FindAsync(booking.EventId);
 
@@ -183,7 +220,6 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // FIXED: Validate the booking date is within the event's date range
             var bookingDateOnly = booking.BookingDate.Date;
             var eventStartDateOnly = @event.StartDate.Date;
             var eventEndDateOnly = @event.EndDate.Date;
@@ -195,7 +231,6 @@ namespace EventEase.Controllers
                 ViewBag.Venues = _context.Venues.ToList();
                 ViewBag.Events = _context.Events.ToList();
 
-                // Pass event dates to view for display
                 if (@event != null)
                 {
                     ViewBag.EventStartDate = @event.StartDate.ToString("yyyy-MM-dd");
@@ -207,7 +242,6 @@ namespace EventEase.Controllers
                 return View(booking);
             }
 
-            // Check for double booking (excluding current booking)
             var isBooked = await _context.Bookings
                 .AnyAsync(b => b.VenueId == booking.VenueId &&
                                b.BookingDate.Date == booking.BookingDate.Date &&

@@ -1,89 +1,168 @@
-﻿@model IEnumerable<EventEase.Models.Booking>
+﻿@model IEnumerable<EventEase.ViewModels.BookingViewModel>
 
 @{
     ViewData["Title"] = "Bookings";
+    var currentSearchTerm = ViewBag.CurrentSearchTerm as string ?? "";
 }
 
 <div class="fade-in">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>
-            <i class="fas fa-bookmark me-2"></i>Bookings
+            <i class="fas fa-bookmark me-2"></i>Bookings Management
         </h1>
         <a asp-action="Create" class="btn btn-primary">
             <i class="fas fa-plus me-2"></i>Create New Booking
         </a>
     </div>
 
+    <!-- Search Bar - Full Width -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" asp-action="Index" class="row g-3">
+                <div class="col-12">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" name="searchTerm" class="form-control form-control-lg"
+                               placeholder="Search by Booking ID, Event Name, Customer Name, or Venue..."
+                               value="@currentSearchTerm">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="fas fa-search me-2"></i>Search
+                        </button>
+                        @if (!string.IsNullOrEmpty(currentSearchTerm))
+                        {
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-times me-2"></i>Clear
+                            </a>
+                        }
+                    </div>
+                </div>
+            </form>
+            @if (!string.IsNullOrEmpty(currentSearchTerm))
+            {
+                <div class="mt-3 text-muted small">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Showing results for: <strong>"@currentSearchTerm"</strong>
+                </div>
+            }
+        </div>
+    </div>
+
     @if (!Model.Any())
     {
         <div class="empty-state">
-            <i class="fas fa-calendar-check"></i>
+            <i class="fas fa-calendar-check fa-4x"></i>
             <h3>No Bookings Found</h3>
-            <p>Start by creating your first booking</p>
-            <a asp-action="Create" class="btn btn-primary mt-3">
-                <i class="fas fa-plus me-2"></i>Create Booking
-            </a>
+            @if (!string.IsNullOrEmpty(currentSearchTerm))
+            {
+                <p>No bookings match "<strong>@currentSearchTerm</strong>". Try a different search term.</p>
+                <a asp-action="Index" class="btn btn-primary mt-3">
+                    <i class="fas fa-arrow-left me-2"></i>View All Bookings
+                </a>
+            }
+            else
+            {
+                <p>Get started by creating your first booking</p>
+                <a asp-action="Create" class="btn btn-primary mt-3">
+                    <i class="fas fa-plus me-2"></i>Create Booking
+                </a>
+            }
         </div>
     }
     else
     {
-        <div class="card shadow-sm">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-hashtag"></i> ID</th>
-                                <th><i class="fas fa-building"></i> Venue</th>
-                                <th><i class="fas fa-calendar-alt"></i> Event</th>
-                                <th><i class="fas fa-calendar-day"></i> Booking Date</th>
-                                <th><i class="fas fa-user"></i> Customer</th>
-                                <th><i class="fas fa-tag"></i> Status</th>
-                                <th><i class="fas fa-cog"></i> Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <!-- Booking Header -->
+                        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                            <span class="badge bg-primary">
+                                <i class="fas fa-hashtag me-1"></i>Booking #@item.BookingId
+                            </span>
+                            @if (item.Status == EventEase.Models.BookingStatus.Confirmed)
                             {
-                                <tr>
-                                    <td>#@item.BookingId</td>
-                                    <td>@item.Venue?.VenueName</td>
-                                    <td>@item.Event?.EventName</td>
-                                    <td>@item.BookingDate.ToString("MMM dd, yyyy")</td>
-                                    <td>@item.CustomerName</td>
-                                    <td>
-                                        @if (item.Status == EventEase.Models.BookingStatus.Confirmed)
-                                        {
-                                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
-                                        }
-                                        else if (item.Status == EventEase.Models.BookingStatus.Pending)
-                                        {
-                                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <a asp-action="Edit" asp-route-id="@item.BookingId" class="btn btn-sm btn-warning" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <a asp-action="Details" asp-route-id="@item.BookingId" class="btn btn-sm btn-info" title="Details">
-                                                <i class="fas fa-info-circle"></i>
-                                            </a>
-                                            <a asp-action="Delete" asp-route-id="@item.BookingId" class="btn btn-sm btn-danger" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
                             }
-                        </tbody>
-                    </table>
+                            else if (item.Status == EventEase.Models.BookingStatus.Pending)
+                            {
+                                <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
+                            }
+                        </div>
+                        
+                        <div class="card-body">
+                            <!-- Event Info -->
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-1">
+                                    <i class="fas fa-calendar-alt me-1"></i>Event
+                                </h6>
+                                <p class="mb-1 fw-bold">@item.EventName</p>
+                                <small class="text-muted">
+                                    @item.EventStartDate.ToString("MMM dd") - @item.EventEndDate.ToString("MMM dd, yyyy")
+                                </small>
+                            </div>
+                            
+                            <!-- Venue Info -->
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-1">
+                                    <i class="fas fa-building me-1"></i>Venue
+                                </h6>
+                                <p class="mb-1">@item.VenueName</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1"></i>@item.VenueLocation
+                                </small>
+                            </div>
+                            
+                            <!-- Booking Details -->
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-1">
+                                    <i class="fas fa-calendar-day me-1"></i>Booking Date
+                                </h6>
+                                <p class="mb-0">@item.BookingDate.ToString("MMMM dd, yyyy")</p>
+                            </div>
+                            
+                            <!-- Customer Info -->
+                            <div>
+                                <h6 class="text-muted mb-1">
+                                    <i class="fas fa-user me-1"></i>Customer
+                                </h6>
+                                <p class="mb-0">@item.CustomerName</p>
+                                @if (!string.IsNullOrEmpty(item.CustomerEmail))
+                                {
+                                    <small class="text-muted">
+                                        <i class="fas fa-envelope me-1"></i>@item.CustomerEmail
+                                    </small>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer bg-white">
+                            <div class="btn-group w-100" role="group">
+                                <a asp-action="Details" asp-route-id="@item.BookingId" class="btn btn-sm btn-info">
+                                    <i class="fas fa-info-circle me-1"></i>Details
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.BookingId" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit me-1"></i>Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.BookingId" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash me-1"></i>Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            }
+        </div>
+        
+        <!-- Results Count -->
+        <div class="text-center text-muted mt-3">
+            <small>Showing @Model.Count() booking(s)</small>
         </div>
     }
 </div>

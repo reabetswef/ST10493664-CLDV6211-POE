@@ -476,3 +476,33 @@ body {
 }
 
 /* ========== END IMAGE STYLES ========== */
+
+/* Bookings Card Styles */
+.booking-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .booking-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .booking-card .card-header {
+        border-bottom: 1px solid #e9ecef;
+        background-color: #f8f9fa;
+    }
+
+/* Search Bar Styles */
+.search-input-group .input-group-text {
+    background-color: white;
+    border-right: none;
+}
+
+.search-input-group input {
+    border-left: none;
+}
+
+    .search-input-group input:focus {
+        border-color: #dee2e6;
+        box-shadow: none;
+    }

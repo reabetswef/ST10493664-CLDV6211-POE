@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 2\\web application\\eventease\\eventease\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 2\\web application\\eventease\\eventease\\views\\bookings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\views\\bookings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 2\\web application\\eventease\\eventease\\views\\events\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\views\\events\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 2\\web application\\eventease\\eventease\\views\\venues\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\views\\venues\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +27,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "EventEase\\wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "EventEase\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAHkBAAAAAAAAAAAkwI0BAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-04-29T20:18:37.329Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Bookings\\Index.cshtml",
+              "RelativeDocumentMoniker": "EventEase\\Views\\Bookings\\Index.cshtml",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Bookings\\Index.cshtml",
+              "RelativeToolTip": "EventEase\\Views\\Bookings\\Index.cshtml",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACYAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T21:11:48.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Events\\Delete.cshtml",
+              "RelativeDocumentMoniker": "EventEase\\Views\\Events\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Events\\Delete.cshtml",
+              "RelativeToolTip": "EventEase\\Views\\Events\\Delete.cshtml",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAAGEAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T21:10:50.756Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Venues\\Delete.cshtml",
+              "RelativeDocumentMoniker": "EventEase\\Views\\Venues\\Delete.cshtml",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 2\\Web Application\\EventEase\\EventEase\\Views\\Venues\\Delete.cshtml",
+              "RelativeToolTip": "EventEase\\Views\\Venues\\Delete.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAFoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-29T21:10:22.918Z",
               "EditorCaption": ""
             }
           ]
