@@ -1,0 +1,123 @@
+﻿@model EventEase.Models.Booking
+
+@{
+    ViewData["Title"] = "Delete Booking";
+}
+
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-trash-alt me-2"></i>Delete Booking
+        </h1>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Warning!</strong> Are you sure you want to delete this booking? This action cannot be undone.
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white">
+            <h5 class="mb-0">
+                <i class="fas fa-info-circle me-2"></i>Booking Information
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <i class="fas fa-hashtag me-1"></i> Booking ID
+                        </dt>
+                        <dd class="col-sm-8">
+                            #@Model.BookingId
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-building me-1"></i> Venue
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Venue?.VenueName
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-calendar-alt me-1"></i> Event
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Event?.EventName
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-calendar-day me-1"></i> Booking Date
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.BookingDate.ToString("MMMM dd, yyyy")
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            <i class="fas fa-tag me-1"></i> Status
+                        </dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Status == EventEase.Models.BookingStatus.Confirmed)
+                            {
+                                <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
+                            }
+                            else if (Model.Status == EventEase.Models.BookingStatus.Pending)
+                            {
+                                <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            <i class="fas fa-user me-1"></i> Customer Name
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.CustomerName
+                        </dd>
+
+                        @if (!string.IsNullOrEmpty(Model.CustomerEmail))
+                        {
+                            <dt class="col-sm-4">
+                                <i class="fas fa-envelope me-1"></i> Email
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Model.CustomerEmail
+                            </dd>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.CustomerPhone))
+                        {
+                            <dt class="col-sm-4">
+                                <i class="fas fa-phone me-1"></i> Phone
+                            </dt>
+                            <dd class="col-sm-8">
+                                @Model.CustomerPhone
+                            </dd>
+                        }
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="BookingId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt me-2"></i>Confirm Delete
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times me-2"></i>Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

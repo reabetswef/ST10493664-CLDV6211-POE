@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="fade-in">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Welcome to EventEase</h1>
+        <p class="lead text-muted">Your Complete Venue Booking Management System</p>
+        <hr class="my-4" style="width: 100px; margin: 0 auto;">
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card dashboard-card h-100" style="background-color: #6c757d; cursor: pointer;" onclick="location.href='@Url.Action("Index", "Venues")'">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0 text-white">Venues</h5>
+                        <i class="fas fa-building fa-2x text-white"></i>
+                    </div>
+                    <p class="display-4 text-center text-white">@ViewBag.VenueCount</p>
+                    <p class="text-center mb-0 text-white">Total Venues Available</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <small class="text-white">Manage Venues <i class="fas fa-arrow-right ms-1"></i></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card h-100" style="background-color: #6c757d; cursor: pointer;" onclick="location.href='@Url.Action("Index", "Events")'">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0 text-white">Events</h5>
+                        <i class="fas fa-calendar-alt fa-2x text-white"></i>
+                    </div>
+                    <p class="display-4 text-center text-white">@ViewBag.EventCount</p>
+                    <p class="text-center mb-0 text-white">Upcoming Events</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <small class="text-white">Manage Events <i class="fas fa-arrow-right ms-1"></i></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card h-100" style="background-color: #6c757d; cursor: pointer;" onclick="location.href='@Url.Action("Index", "Bookings")'">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0 text-white">Bookings</h5>
+                        <i class="fas fa-bookmark fa-2x text-white"></i>
+                    </div>
+                    <p class="display-4 text-center text-white">@ViewBag.BookingCount</p>
+                    <p class="text-center mb-0 text-white">Total Bookings</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 text-center">
+                    <small class="text-white">Manage Bookings <i class="fas fa-arrow-right ms-1"></i></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.RecentBookings != null && ViewBag.RecentBookings.Count > 0)
+    {
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-history me-2"></i>Recent Bookings
+                </h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Venue</th>
+                                <th>Event</th>
+                                <th>Booking Date</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in ViewBag.RecentBookings)
+                            {
+                                <tr>
+                                    <td>#@booking.BookingId</td>
+                                    <td>@booking.Venue?.VenueName</td>
+                                    <td>@booking.Event?.EventName</td>
+                                    <td>@booking.BookingDate.ToString("MMM dd, yyyy")</td>
+                                    <td>@booking.CustomerName</td>
+                                    <td>
+                                        @if (booking.Status == EventEase.Models.BookingStatus.Confirmed)
+                                        {
+                                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
+                                        }
+                                        else if (booking.Status == EventEase.Models.BookingStatus.Pending)
+                                        {
+                                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Bookings" asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <i class="fas fa-calendar-check"></i>
+            <h3>No Bookings Yet</h3>
+            <p>Start by creating your first booking</p>
+            <a asp-controller="Bookings" asp-action="Create" class="btn btn-primary mt-3">
+                <i class="fas fa-plus me-2"></i>Create Booking
+            </a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // Add click animation to dashboard cards
+        document.querySelectorAll('.dashboard-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+}

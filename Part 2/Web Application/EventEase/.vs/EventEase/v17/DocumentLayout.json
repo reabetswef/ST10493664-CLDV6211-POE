@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|c:\\users\\rf9re\\onedrive - advtech ltd\\emeris 2026\\semester 1\\cldv6211\\poe\\st10493664-cldv6211-poe\\part 1\\web application\\eventease\\eventease\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{25E35C66-296F-4397-9FA0-2F6439752911}|EventEase\\EventEase.csproj|solutionrelative:eventease\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\appsettings.json",
+              "RelativeDocumentMoniker": "EventEase\\appsettings.json",
+              "ToolTip": "C:\\Users\\rf9re\\OneDrive - ADvTECH Ltd\\Emeris 2026\\Semester 1\\CLDV6211\\POE\\ST10493664-CLDV6211-POE\\Part 1\\Web Application\\EventEase\\EventEase\\appsettings.json",
+              "RelativeToolTip": "EventEase\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-14T19:15:37.895Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<EventEase.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-bookmark me-2"></i>Bookings
+        </h1>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Create New Booking
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <i class="fas fa-calendar-check"></i>
+            <h3>No Bookings Found</h3>
+            <p>Start by creating your first booking</p>
+            <a asp-action="Create" class="btn btn-primary mt-3">
+                <i class="fas fa-plus me-2"></i>Create Booking
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-hashtag"></i> ID</th>
+                                <th><i class="fas fa-building"></i> Venue</th>
+                                <th><i class="fas fa-calendar-alt"></i> Event</th>
+                                <th><i class="fas fa-calendar-day"></i> Booking Date</th>
+                                <th><i class="fas fa-user"></i> Customer</th>
+                                <th><i class="fas fa-tag"></i> Status</th>
+                                <th><i class="fas fa-cog"></i> Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@item.BookingId</td>
+                                    <td>@item.Venue?.VenueName</td>
+                                    <td>@item.Event?.EventName</td>
+                                    <td>@item.BookingDate.ToString("MMM dd, yyyy")</td>
+                                    <td>@item.CustomerName</td>
+                                    <td>
+                                        @if (item.Status == EventEase.Models.BookingStatus.Confirmed)
+                                        {
+                                            <span class="badge bg-success"><i class="fas fa-check me-1"></i>Confirmed</span>
+                                        }
+                                        else if (item.Status == EventEase.Models.BookingStatus.Pending)
+                                        {
+                                            <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>Pending</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger"><i class="fas fa-times me-1"></i>Cancelled</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.BookingId" class="btn btn-sm btn-warning" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-action="Details" asp-route-id="@item.BookingId" class="btn btn-sm btn-info" title="Details">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.BookingId" class="btn btn-sm btn-danger" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

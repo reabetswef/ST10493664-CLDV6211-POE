@@ -1,0 +1,378 @@
+﻿@model EventEase.Models.Booking
+
+@{
+    ViewData["Title"] = "Edit Booking";
+    var venues = ViewBag.Venues as List<EventEase.Models.Venue>;
+    var events = ViewBag.Events as List<EventEase.Models.Event>;
+
+    // Get event date range for validation
+    var eventStartDate = ViewBag.EventStartDate as string;
+    var eventEndDate = ViewBag.EventEndDate as string;
+    var eventStartDisplay = ViewBag.EventStartDisplay as string;
+    var eventEndDisplay = ViewBag.EventEndDisplay as string;
+}
+
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-edit me-2"></i>Edit Booking #@Model.BookingId
+        </h1>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form asp-action="Edit" id="editBookingForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="BookingId" />
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label asp-for="VenueId" class="control-label fw-bold">
+                                        <i class="fas fa-building me-1"></i>Venue
+                                    </label>
+                                    <select asp-for="VenueId" class="form-control" id="VenueSelect">
+                                        <option value="">-- Select Venue --</option>
+                                        @foreach (var venue in venues)
+                                        {
+                                            if (Model.VenueId == venue.VenueId)
+                                            {
+                                                <option value="@venue.VenueId" selected>@venue.VenueName - Capacity: @venue.Capacity</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@venue.VenueId">@venue.VenueName - Capacity: @venue.Capacity</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="VenueId" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label asp-for="EventId" class="control-label fw-bold">
+                                        <i class="fas fa-calendar-alt me-1"></i>Event
+                                    </label>
+                                    <select asp-for="EventId" class="form-control" id="EventSelect">
+                                        <option value="">-- Select Event --</option>
+                                        @foreach (var ev in events)
+                                        {
+                                            var startDateStr = ev.StartDate.ToString("yyyy-MM-dd");
+                                            var endDateStr = ev.EndDate.ToString("yyyy-MM-dd");
+                                            var startDisplayStr = ev.StartDate.ToString("MMM dd, yyyy");
+                                            var endDisplayStr = ev.EndDate.ToString("MMM dd, yyyy");
+                                            var isSelected = (Model.EventId == ev.EventId);
+
+                                            if (isSelected)
+                                            {
+                                                <option value="@ev.EventId"
+                                                        data-start="@startDateStr"
+                                                        data-end="@endDateStr"
+                                                        data-start-display="@startDisplayStr"
+                                                        data-end-display="@endDisplayStr"
+                                                        selected>
+                                                    @ev.EventName - @ev.StartDate.ToString("MMM dd") to @ev.EndDate.ToString("MMM dd, yyyy")
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@ev.EventId"
+                                                        data-start="@startDateStr"
+                                                        data-end="@endDateStr"
+                                                        data-start-display="@startDisplayStr"
+                                                        data-end-display="@endDisplayStr">
+                                                    @ev.EventName - @ev.StartDate.ToString("MMM dd") to @ev.EndDate.ToString("MMM dd, yyyy")
+                                                </option>
+                                            }
+                                        }
+                                    </select>
+                                    <span asp-validation-for="EventId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="BookingDate" class="control-label fw-bold">
+                                    <i class="fas fa-calendar-day me-1"></i>Booking Date
+                                </label>
+                                <input asp-for="BookingDate" class="form-control" type="date" id="BookingDate" />
+                                <span asp-validation-for="BookingDate" class="text-danger" id="BookingDateError"></span>
+                                <div id="DateRangeMessage" class="form-text">
+                                    @if (!string.IsNullOrEmpty(eventStartDate) && !string.IsNullOrEmpty(eventEndDate))
+                                    {
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        <span>Booking date must be between <strong>@eventStartDisplay</strong> and <strong>@eventEndDisplay</strong></span>
+                                        <input type="hidden" id="EventStartDate" value="@eventStartDate" />
+                                        <input type="hidden" id="EventEndDate" value="@eventEndDate" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        <span>Select an event to see the available date range</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="CustomerName" class="control-label fw-bold">
+                                    <i class="fas fa-user me-1"></i>Customer Name
+                                </label>
+                                <input asp-for="CustomerName" class="form-control" />
+                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label asp-for="CustomerEmail" class="control-label fw-bold">
+                                        <i class="fas fa-envelope me-1"></i>Customer Email
+                                    </label>
+                                    <input asp-for="CustomerEmail" class="form-control" type="email" />
+                                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label asp-for="CustomerPhone" class="control-label fw-bold">
+                                        <i class="fas fa-phone me-1"></i>Customer Phone
+                                    </label>
+                                    <input asp-for="CustomerPhone" class="form-control" />
+                                    <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label fw-bold">
+                                    <i class="fas fa-tag me-1"></i>Status
+                                </label>
+                                <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<EventEase.Models.BookingStatus>()"></select>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <i class="fas fa-save me-2"></i>Save Changes
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>Booking Tips
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Booking date must be within the selected event's date range
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            A venue can only be booked once per day
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Cancelled bookings don't block the venue
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            Customer contact details are optional but recommended
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mt-3">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Current Booking Info
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Current Venue:</dt>
+                        <dd class="col-sm-7">@Model.Venue?.VenueName</dd>
+
+                        <dt class="col-sm-5">Current Event:</dt>
+                        <dd class="col-sm-7">@Model.Event?.EventName</dd>
+
+                        <dt class="col-sm-5">Current Date:</dt>
+                        <dd class="col-sm-7">@Model.BookingDate.ToString("MMM dd, yyyy")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Get DOM elements
+        const eventSelect = document.getElementById('EventSelect');
+        const bookingDateInput = document.getElementById('BookingDate');
+        const dateRangeMessage = document.getElementById('DateRangeMessage');
+        const bookingDateError = document.getElementById('BookingDateError');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Store current selected event date range
+        let currentEventStart = null;
+        let currentEventEnd = null;
+        let currentEventStartDisplay = null;
+        let currentEventEndDisplay = null;
+
+        // Function to update date range based on selected event
+        function updateDateRange() {
+            const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+
+            if (selectedOption && selectedOption.value) {
+                const startDate = selectedOption.getAttribute('data-start');
+                const endDate = selectedOption.getAttribute('data-end');
+                const startDisplay = selectedOption.getAttribute('data-start-display');
+                const endDisplay = selectedOption.getAttribute('data-end-display');
+
+                if (startDate && endDate) {
+                    currentEventStart = startDate;
+                    currentEventEnd = endDate;
+                    currentEventStartDisplay = startDisplay;
+                    currentEventEndDisplay = endDisplay;
+
+                    // Set min and max attributes on date input
+                    bookingDateInput.min = startDate;
+                    bookingDateInput.max = endDate;
+
+                    // Update the message
+                    dateRangeMessage.innerHTML = `
+                        <i class="fas fa-info-circle me-1"></i>
+                        <span>Booking date must be between <strong>${startDisplay}</strong> and <strong>${endDisplay} for this event</strong></span>
+                    `;
+                    dateRangeMessage.className = 'form-text text-success';
+
+                    // Validate current booking date against new range
+                    validateBookingDate();
+                }
+            } else {
+                // No event selected
+                currentEventStart = null;
+                currentEventEnd = null;
+                bookingDateInput.min = '';
+                bookingDateInput.max = '';
+                dateRangeMessage.innerHTML = `
+                    <i class="fas fa-info-circle me-1"></i>
+                    <span>Select an event to see the available date range</span>
+                `;
+                dateRangeMessage.className = 'form-text text-muted';
+                bookingDateError.textContent = '';
+            }
+        }
+
+        // Function to validate booking date
+        function validateBookingDate() {
+            const bookingDate = bookingDateInput.value;
+
+            if (!bookingDate) {
+                bookingDateError.textContent = '';
+                return true;
+            }
+
+            if (currentEventStart && currentEventEnd) {
+                const bookingDateObj = new Date(bookingDate);
+                const startDateObj = new Date(currentEventStart);
+                const endDateObj = new Date(currentEventEnd);
+
+                if (bookingDateObj < startDateObj || bookingDateObj > endDateObj) {
+                    bookingDateError.textContent = `Booking date must be between ${currentEventStartDisplay} and ${currentEventEndDisplay} for this event`;
+                    bookingDateError.style.color = '#dc3545';
+                    return false;
+                } else {
+                    bookingDateError.textContent = '';
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
+        // Add event listeners
+        if (eventSelect) {
+            eventSelect.addEventListener('change', function() {
+                updateDateRange();
+            });
+        }
+
+        if (bookingDateInput) {
+            bookingDateInput.addEventListener('change', function() {
+                validateBookingDate();
+            });
+        }
+
+        // Form submission validation
+        const form = document.getElementById('editBookingForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                if (!validateBookingDate()) {
+                    e.preventDefault();
+                    alert('Please fix the booking date error before submitting.');
+                    return false;
+                }
+
+                // Also check if a venue and event are selected
+                if (!eventSelect || !eventSelect.value) {
+                    e.preventDefault();
+                    alert('Please select an event.');
+                    return false;
+                }
+
+                const venueSelect = document.getElementById('VenueSelect');
+                if (!venueSelect || !venueSelect.value) {
+                    e.preventDefault();
+                    alert('Please select a venue.');
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Initial validation on page load
+        updateDateRange();
+
+        // Add venue validation
+        const venueSelect = document.getElementById('VenueSelect');
+        if (venueSelect) {
+            venueSelect.addEventListener('change', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#dc3545';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+        }
+    </script>
+}
