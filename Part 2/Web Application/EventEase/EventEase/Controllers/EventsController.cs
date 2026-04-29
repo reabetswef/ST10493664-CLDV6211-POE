@@ -2,22 +2,29 @@
 using Microsoft.EntityFrameworkCore;
 using EventEase.Data;
 using EventEase.Models;
+using EventEase.Services;
+using EventEase.ViewModels;
 
 namespace EventEase.Controllers
 {
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly BlobStorageService _blobStorage;
+        private readonly ILogger<EventsController> _logger;
 
-        public EventsController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context, BlobStorageService blobStorage, ILogger<EventsController> logger)
         {
             _context = context;
+            _blobStorage = blobStorage;
+            _logger = logger;
         }
 
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            var events = await _context.Events.ToListAsync();
+            return View(events);
         }
 
         // GET: Events/Details/5
@@ -42,47 +49,83 @@ namespace EventEase.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            // Set default values for new event
-            var newEvent = new Event
+            var viewModel = new EventViewModel
             {
-                StartDate = DateTime.Now.Date.AddHours(9), // Today at 9:00 AM
-                EndDate = DateTime.Now.Date.AddDays(1).AddHours(17) // Tomorrow at 5:00 PM
+                StartDate = DateTime.Now.Date.AddHours(9),
+                EndDate = DateTime.Now.Date.AddDays(1).AddHours(17)
             };
-            return View(newEvent);
+            return View(viewModel);
         }
 
         // POST: Events/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,EventName,Description,StartDate,EndDate,ImageUrl")] Event @event)
+        public async Task<IActionResult> Create(EventViewModel viewModel)
         {
-            // Remove validation errors for any fields we don't want to validate
-            ModelState.Remove("Bookings");
+            // Remove ModelState errors for IFormFile (optional field)
+            ModelState.Remove("ExistingImageUrl");
 
             if (ModelState.IsValid)
             {
-                // Validate that end date is after start date
-                if (@event.EndDate <= @event.StartDate)
+                try
                 {
-                    ModelState.AddModelError("EndDate", "End date and time must be after start date and time.");
-                    return View(@event);
-                }
+                    // Validate dates
+                    if (viewModel.EndDate <= viewModel.StartDate)
+                    {
+                        ModelState.AddModelError("EndDate", "End date must be after start date.");
+                        return View(viewModel);
+                    }
 
-                // Validate that start date is not in the past (optional)
-                if (@event.StartDate < DateTime.Now.Date)
+                    var @event = new Event
+                    {
+                        EventName = viewModel.EventName,
+                        Description = viewModel.Description,
+                        StartDate = viewModel.StartDate,
+                        EndDate = viewModel.EndDate,
+                        ImageUrl = string.Empty
+                    };
+
+                    // Handle image upload
+                    if (viewModel.ImageFile != null && viewModel.ImageFile.Length > 0)
+                    {
+                        try
+                        {
+                            var imageUrl = await _blobStorage.UploadImageAsync(viewModel.ImageFile);
+                            @event.ImageUrl = imageUrl;
+                            _logger.LogInformation($"Image uploaded successfully: {imageUrl}");
+                        }
+                        catch (ArgumentException argEx)
+                        {
+                            ModelState.AddModelError("ImageFile", argEx.Message);
+                            return View(viewModel);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Image upload failed");
+                            ModelState.AddModelError("", "Failed to upload image. Please try again.");
+                            return View(viewModel);
+                        }
+                    }
+                    else
+                    {
+                        // Default placeholder
+                        @event.ImageUrl = "https://via.placeholder.com/300x200?text=No+Image";
+                    }
+
+                    _context.Add(@event);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Event created successfully!";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("StartDate", "Start date cannot be in the past.");
-                    return View(@event);
+                    _logger.LogError(ex, "Error creating event");
+                    ModelState.AddModelError("", "An error occurred while creating the event. Please try again.");
+                    return View(viewModel);
                 }
-
-                _context.Add(@event);
-                await _context.SaveChangesAsync();
-                TempData["SuccessMessage"] = "Event created successfully!";
-                return RedirectToAction(nameof(Index));
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(@event);
+            return View(viewModel);
         }
 
         // GET: Events/Edit/5
@@ -98,31 +141,67 @@ namespace EventEase.Controllers
             {
                 return NotFound();
             }
-            return View(@event);
+
+            var viewModel = new EventViewModel
+            {
+                EventId = @event.EventId,
+                EventName = @event.EventName,
+                Description = @event.Description,
+                StartDate = @event.StartDate,
+                EndDate = @event.EndDate,
+                ExistingImageUrl = @event.ImageUrl
+            };
+
+            return View(viewModel);
         }
 
         // POST: Events/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,Description,StartDate,EndDate,ImageUrl")] Event @event)
+        public async Task<IActionResult> Edit(int id, EventViewModel viewModel)
         {
-            if (id != @event.EventId)
+            if (id != viewModel.EventId)
             {
                 return NotFound();
             }
-
-            // Remove validation errors for any fields we don't want to validate
-            ModelState.Remove("Bookings");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    // Validate that end date is after start date
+                    var @event = await _context.Events.FindAsync(id);
+                    if (@event == null)
+                    {
+                        return NotFound();
+                    }
+
+                    @event.EventName = viewModel.EventName;
+                    @event.Description = viewModel.Description;
+                    @event.StartDate = viewModel.StartDate;
+                    @event.EndDate = viewModel.EndDate;
+
+                    // Validate dates
                     if (@event.EndDate <= @event.StartDate)
                     {
-                        ModelState.AddModelError("EndDate", "End date and time must be after start date and time.");
-                        return View(@event);
+                        ModelState.AddModelError("EndDate", "End date must be after start date.");
+                        return View(viewModel);
+                    }
+
+                    // Handle image upload
+                    if (viewModel.ImageFile != null)
+                    {
+                        try
+                        {
+                            var imageUrl = await _blobStorage.UploadImageAsync(viewModel.ImageFile, viewModel.ExistingImageUrl);
+                            @event.ImageUrl = imageUrl;
+                            _logger.LogInformation($"Image updated successfully: {imageUrl}");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Image upload failed during edit");
+                            ModelState.AddModelError("", "Failed to upload image. Please try again.");
+                            return View(viewModel);
+                        }
                     }
 
                     _context.Update(@event);
@@ -131,7 +210,7 @@ namespace EventEase.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventId))
+                    if (!EventExists(viewModel.EventId))
                     {
                         return NotFound();
                     }
@@ -142,7 +221,7 @@ namespace EventEase.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(viewModel);
         }
 
         // GET: Events/Delete/5
@@ -161,7 +240,7 @@ namespace EventEase.Controllers
                 return NotFound();
             }
 
-            // Check if event has any associated bookings to display warning
+            // Check if event has associated bookings
             var hasBookings = await _context.Bookings.AnyAsync(b => b.EventId == id);
             ViewBag.HasBookings = hasBookings;
 
@@ -181,8 +260,22 @@ namespace EventEase.Controllers
                 var hasBookings = await _context.Bookings.AnyAsync(b => b.EventId == id);
                 if (hasBookings)
                 {
-                    TempData["ErrorMessage"] = "Cannot delete this event because it has existing bookings. Please remove or reassign the bookings first.";
+                    TempData["ErrorMessage"] = "Cannot delete this event because it has existing bookings.";
                     return RedirectToAction(nameof(Index));
+                }
+
+                // Delete image from blob storage if it exists
+                if (!string.IsNullOrEmpty(@event.ImageUrl) && !@event.ImageUrl.Contains("via.placeholder.com"))
+                {
+                    try
+                    {
+                        await _blobStorage.DeleteImageAsync(@event.ImageUrl);
+                        _logger.LogInformation($"Image deleted: {@event.ImageUrl}");
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Failed to delete image from blob storage");
+                    }
                 }
 
                 _context.Events.Remove(@event);
@@ -196,25 +289,6 @@ namespace EventEase.Controllers
         private bool EventExists(int id)
         {
             return _context.Events.Any(e => e.EventId == id);
-        }
-
-        // GET: Events/GetEventDates/5 (AJAX endpoint for booking form)
-        [HttpGet]
-        public async Task<IActionResult> GetEventDates(int id)
-        {
-            var @event = await _context.Events.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return Json(new
-            {
-                startDate = @event.StartDate.ToString("yyyy-MM-dd"),
-                endDate = @event.EndDate.ToString("yyyy-MM-dd"),
-                startDateTime = @event.StartDate.ToString("yyyy-MM-ddTHH:mm"),
-                endDateTime = @event.EndDate.ToString("yyyy-MM-ddTHH:mm")
-            });
         }
     }
 }

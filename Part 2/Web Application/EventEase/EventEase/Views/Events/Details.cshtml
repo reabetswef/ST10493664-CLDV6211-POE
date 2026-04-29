@@ -42,24 +42,28 @@
                         <dd class="col-sm-9">
                             @Html.DisplayFor(model => model.EventName)
                         </dd>
+
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.Description)
                         </dt>
                         <dd class="col-sm-9">
                             @Html.DisplayFor(model => model.Description)
                         </dd>
+
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.StartDate)
                         </dt>
                         <dd class="col-sm-9">
                             @Model?.StartDate.ToString("MMMM dd, yyyy hh:mm tt")
                         </dd>
+
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.EndDate)
                         </dt>
                         <dd class="col-sm-9">
                             @Model?.EndDate.ToString("MMMM dd, yyyy hh:mm tt")
                         </dd>
+
                         <dt class="col-sm-3">
                             @Html.DisplayNameFor(model => model.ImageUrl)
                         </dt>

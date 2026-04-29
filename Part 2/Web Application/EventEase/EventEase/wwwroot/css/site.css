@@ -423,3 +423,56 @@ body {
     .empty-state p {
         color: #7f8c8d;
     }
+
+/* ========== IMAGE STYLES - PERFECT FIT ========== */
+
+/* Card Image Container - Fixed size container */
+.card-image-container {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+    /* Card Image - Cover mode (fills container, crops if needed) */
+    .card-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+/* Detail View Images - Responsive fit */
+.detail-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+/* Thumbnail images for edit forms */
+.current-image-thumb {
+    max-height: 200px;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Consistent image grid for venues/events */
+.image-grid {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ========== END IMAGE STYLES ========== */

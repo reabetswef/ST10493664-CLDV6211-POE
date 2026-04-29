@@ -25,7 +25,7 @@
                 <div class="col-md-5 text-center">
                     <img src="@Model?.ImageUrl" class="detail-image" alt="@Model?.VenueName"
                          onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
-                    @if (!string.IsNullOrEmpty(Model?.ImageUrl) && Model.ImageUrl.Contains("via.placeholder.com") == false)
+                    @if (!string.IsNullOrEmpty(Model?.ImageUrl) && !Model.ImageUrl.Contains("via.placeholder.com"))
                     {
                         <div class="mt-2">
                             <a href="@Model.ImageUrl" target="_blank" class="btn btn-sm btn-info">

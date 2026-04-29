@@ -22,7 +22,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="VenueId" />
                         <input type="hidden" asp-for="ExistingImageUrl" />
-
+                        
                         <div class="mb-3">
                             <div class="form-group">
                                 <label asp-for="VenueName" class="control-label fw-bold">
@@ -32,7 +32,7 @@
                                 <span asp-validation-for="VenueName" class="text-danger"></span>
                             </div>
                         </div>
-
+                        
                         <div class="mb-3">
                             <div class="form-group">
                                 <label asp-for="Location" class="control-label fw-bold">
@@ -42,7 +42,7 @@
                                 <span asp-validation-for="Location" class="text-danger"></span>
                             </div>
                         </div>
-
+                        
                         <div class="mb-3">
                             <div class="form-group">
                                 <label asp-for="Capacity" class="control-label fw-bold">
@@ -52,7 +52,7 @@
                                 <span asp-validation-for="Capacity" class="text-danger"></span>
                             </div>
                         </div>
-
+                        
                         <div class="mb-3">
                             <div class="form-group">
                                 <label asp-for="ImageFile" class="control-label fw-bold">
@@ -65,7 +65,7 @@
                                 </small>
                             </div>
                         </div>
-
+                        
                         <div class="form-group mt-4">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save me-2"></i>Save
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4">
             <div class="card shadow-sm">
                 <div class="card-header bg-white">
@@ -87,8 +87,7 @@
                     </h5>
                 </div>
                 <div class="card-body text-center">
-                    <img src="@Model.ExistingImageUrl" class="img-fluid rounded" alt="Current venue image"
-                         style="max-height: 200px; width: auto; object-fit: contain;"
+                    <img src="@Model.ExistingImageUrl" class="current-image-thumb" alt="Current venue image"
                          onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
                 </div>
             </div>
