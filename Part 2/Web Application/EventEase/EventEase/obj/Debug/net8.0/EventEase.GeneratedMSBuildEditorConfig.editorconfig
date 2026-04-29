@@ -1,5 +1,7 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v8.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
@@ -9,101 +11,101 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EventEase
 build_property.RootNamespace = EventEase
-build_property.ProjectDir = C:\Users\rf9re\OneDrive - ADvTECH Ltd\Emeris 2026\Semester 1\CLDV6211\POE\ST10493664-CLDV6211-POE\Part 1\Web Application\EventEase\EventEase\
+build_property.ProjectDir = C:\Users\rf9re\OneDrive - ADvTECH Ltd\Emeris 2026\Semester 1\CLDV6211\POE\ST10493664-CLDV6211-POE\Part 2\Web Application\EventEase\EventEase\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\rf9re\OneDrive - ADvTECH Ltd\Emeris 2026\Semester 1\CLDV6211\POE\ST10493664-CLDV6211-POE\Part 1\Web Application\EventEase\EventEase
+build_property.MSBuildProjectDirectory = C:\Users\rf9re\OneDrive - ADvTECH Ltd\Emeris 2026\Semester 1\CLDV6211\POE\ST10493664-CLDV6211-POE\Part 2\Web Application\EventEase\EventEase
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Bookings/Create.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Bookings/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Bookings/Delete.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Bookings/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Bookings/Details.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Bookings/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Bookings/Edit.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Bookings/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Bookings/Index.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Bookings/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va2luZ3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Events/Create.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Events/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Events/Delete.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Events/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Events/Details.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Events/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Events/Edit.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Events/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Events/Index.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Events/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXZlbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Home/Index.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Home/Privacy.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Shared/Error.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Venues/Create.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Venues/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Venues/Delete.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Venues/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Venues/Details.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Venues/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Venues/Edit.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Venues/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Venues/Index.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Venues/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVudWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/_ViewImports.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/_ViewStart.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 1/Web Application/EventEase/EventEase/Views/Shared/_Layout.cshtml]
+[C:/Users/rf9re/OneDrive - ADvTECH Ltd/Emeris 2026/Semester 1/CLDV6211/POE/ST10493664-CLDV6211-POE/Part 2/Web Application/EventEase/EventEase/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-h6jhhsk07a

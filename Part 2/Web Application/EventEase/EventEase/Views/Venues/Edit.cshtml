@@ -1,47 +1,98 @@
-﻿@model EventEase.Models.Venue
+﻿@model EventEase.ViewModels.VenueViewModel
 
 @{
     ViewData["Title"] = "Edit Venue";
 }
 
-<h1>Edit Venue</h1>
+<div class="fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            <i class="fas fa-edit me-2"></i>Edit Venue
+        </h1>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
 
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="VenueId" />
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="VenueId" />
+                        <input type="hidden" asp-for="ExistingImageUrl" />
 
-            <div class="form-group mb-3">
-                <label asp-for="VenueName" class="control-label"></label>
-                <input asp-for="VenueName" class="form-control" />
-                <span asp-validation-for="VenueName" class="text-danger"></span>
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="VenueName" class="control-label fw-bold">
+                                    <i class="fas fa-tag me-1"></i>Venue Name
+                                </label>
+                                <input asp-for="VenueName" class="form-control" />
+                                <span asp-validation-for="VenueName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="Location" class="control-label fw-bold">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Location
+                                </label>
+                                <input asp-for="Location" class="form-control" />
+                                <span asp-validation-for="Location" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="Capacity" class="control-label fw-bold">
+                                    <i class="fas fa-users me-1"></i>Capacity
+                                </label>
+                                <input asp-for="Capacity" class="form-control" type="number" />
+                                <span asp-validation-for="Capacity" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-group">
+                                <label asp-for="ImageFile" class="control-label fw-bold">
+                                    <i class="fas fa-image me-1"></i>Venue Image (Optional)
+                                </label>
+                                <input asp-for="ImageFile" class="form-control" type="file" accept="image/*" />
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                <small class="form-text text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>Leave empty to keep current image
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
+        </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-image me-2"></i>Current Image
+                    </h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="@Model.ExistingImageUrl" class="img-fluid rounded" alt="Current venue image"
+                         style="max-height: 200px; width: auto; object-fit: contain;"
+                         onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+                </div>
             </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Capacity" class="control-label"></label>
-                <input asp-for="Capacity" class="form-control" />
-                <span asp-validation-for="Capacity" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
